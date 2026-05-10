@@ -5,6 +5,7 @@ import { client } from "@/lib/client";
 import { useRouter } from "next/navigation";
 import { handleGetUsername } from "@/lib/helper";
 import { useMutation } from "@tanstack/react-query";
+import type { ApiResponseType } from "@/lib/ApiResponse";
 
 const HomePage = () => {
 
@@ -14,10 +15,18 @@ const HomePage = () => {
         return handleGetUsername()
     })
 
+    /// Create room mutation
     const { mutate: createRoomMutate, isPending: isRoomCreatepending } = useMutation({
         mutationKey: ["create-room"],
         mutationFn: async () => {
-            const res = client.room.create.post()
+            const { data, error } = await client.room.create.post()
+            if (error) throw new Error((error.value as ApiResponseType).message)
+            return data
+        },
+        onSuccess: (data) => {
+            if (data?.success) {
+                router.push(`/chat-room/${data?.data?.roomId}`)
+            }
         }
     })
 
