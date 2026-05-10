@@ -10,6 +10,8 @@ import type { ApiResponseType } from "@/lib/ApiResponse";
 const useCreateRoom = () => {
 
   const router = useRouter()
+  const [joiningRoomId, setJoiningRoomId] = useState<string>("");
+  
   const [username] = useState(() => {
     if (typeof window === "undefined") return ""
     return handleGetUsername()
@@ -30,10 +32,18 @@ const useCreateRoom = () => {
     }
   })
 
+  const handleJoinRoom = () => {
+    console.log("hello")
+    router.push(`http://localhost:3000/room/${joiningRoomId}`)
+  }
+
 
   return {
-    username, 
+    username,
+    joiningRoomId,
+    handleJoinRoom,
     createRoomMutate,
+    setJoiningRoomId,
     isRoomCreatepending,
   }
 }
