@@ -25,7 +25,7 @@ const HomePage = () => {
         },
         onSuccess: (data) => {
             if (data?.success) {
-                router.push(`/chat-room/${data?.data?.roomId}`)
+                router.push(`/room/${data?.data?.roomId}`)
             }
         }
     })
