@@ -84,3 +84,8 @@ Built with care by **Subham**.
 ---
 
 _Talk freely. Leave nothing behind._
+
+<img width="1536" height="1024" alt="Mockuo_01" src="https://github.com/user-attachments/assets/31748693-0529-4d6b-93e1-a1f4370799f7" />
+
+
+<img width="1536" height="1024" alt="Mockup_02" src="https://github.com/user-attachments/assets/64499f90-14e4-473c-868e-44a74cc6cdf9" />
