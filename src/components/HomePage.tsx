@@ -1,13 +1,24 @@
 "use client"
 
 import { useState } from "react";
+import { client } from "@/lib/client";
+import { useRouter } from "next/navigation";
 import { handleGetUsername } from "@/lib/helper";
+import { useMutation } from "@tanstack/react-query";
 
 const HomePage = () => {
 
+    const router = useRouter()
     const [username] = useState(() => {
         if (typeof window === "undefined") return ""
         return handleGetUsername()
+    })
+
+    const { mutate: createRoomMutate, isPending: isRoomCreatepending } = useMutation({
+        mutationKey: ["create-room"],
+        mutationFn: async () => {
+            const res = client.room.create.post()
+        }
     })
 
     return (
@@ -26,9 +37,10 @@ const HomePage = () => {
                     className="w-full border border-zinc-600/80 py-3 px-4 bg-zinc-950 text-[14px] lg:text-base disabled:text-zinc-400"
                 />
                 <button
+                    onClick={() => createRoomMutate()}
                     className="w-full py-3 flex justify-center items-center bg-white text-zinc-800 font-bold mt-2
                     cursor-pointer hover:bg-white/80 transition-colors duration-300 text-[14px] lg:text-base disabled:bg-white/20">
-                    {`CREATE SECURE ROOM`}
+                    {isRoomCreatepending ? "CREATING..." : `CREATE SECURE ROOM`}
                 </button>
 
                 <div className="my-3 w-full flex items-center text-zinc-600">

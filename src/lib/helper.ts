@@ -6,7 +6,7 @@ const ANIMALS = ["wolf", "frog", "shark", "monkey"]
 /// generate random user name
 export const generateRandomUsername = () => {
     const word = ANIMALS[Math.floor(Math.random() * ANIMALS.length)]
-    return `anonymous-${word}-${nanoid(8)}`
+    return `anonymous-${word}-${nanoid()}`
 }
 
 /// get the user name
