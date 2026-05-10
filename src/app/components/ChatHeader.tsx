@@ -1,12 +1,15 @@
 "use client";
 
+import { formatTimeRemaining } from "@/lib/helper";
 import { useState } from "react";
 
-const ChatHeader = () => {
+const ChatHeader = ({ roomId }: { roomId: string }) => {
 
-    const [roomId] = useState<string>("sample-room");
     const [copyText, setCopyText] = useState<string>("COPY");
+    const [timeRemaining, setTimeRemaining] = useState<number | null>(10);
 
+
+    /// to copy the room link
     const handleCopy = async () => {
         try {
             await navigator.clipboard.writeText(`http://localhost:3000/chat-room/${roomId}`);
@@ -24,7 +27,7 @@ const ChatHeader = () => {
             px-4 sm:px-6 md:px-10 lg:px-16 py-4 gap-4 lg:gap-0
         ">
             {/* ROOM ID */}
-            <div>
+            <div className="lg:w-100">
                 <h4 className="text-zinc-500 text-sm sm:text-base">Room ID</h4>
                 <div className="flex items-center gap-2">
                     <h4 className="text-green-500 text-[14px] sm:text-[16px] break-all whitespace-nowrap">
@@ -32,11 +35,11 @@ const ChatHeader = () => {
                     </h4>
                     <button
                         onClick={handleCopy}
-                        className="
-                                px-3 sm:px-4 py-1.5 bg-zinc-500/50 hover:bg-zinc-500/40 
-                                font-semibold cursor-pointer text-[11px] sm:text-[12px] 
-                                rounded-lg active:scale-95 transition-transform
-                                "
+                        className={`
+                                px-2 sm:px-3 py-1 font-semibold cursor-pointer
+                                text-[10px] sm:text-[12px] rounded-lg active:scale-95
+                                transition-all duration-200 bg-zinc-500/50 hover:bg-zinc-500/40
+                                ${copyText === "COPIED!" ? "text-green-500" : ""}`}
                     >
                         {copyText}
                     </button>
@@ -48,8 +51,11 @@ const ChatHeader = () => {
             <div className="flex items-center justify-between w-full">
                 <div>
                     <h4 className="text-zinc-500 text-sm sm:text-base">Self_Destruct</h4>
-                    <h4 className="text-yellow-500 text-[14px] sm:text-[16px]">
-                        02:00
+                    <h4 className={`
+                    text-[14px] sm:text-[16px] 
+                    ${timeRemaining !== null && Number(timeRemaining) < 60 ? "text-red-500" : "text-yellow-500"}
+                    `}>
+                        {timeRemaining ? formatTimeRemaining(timeRemaining) : "_ _:_ _"}
                     </h4>
                 </div>
 

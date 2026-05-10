@@ -41,8 +41,8 @@ const ChatInput = ({ value, onChange, handleSend }: ChatInputProps) => {
     };
 
     return (
-        <div className="w-full absolute bottom-0 lg:bottom-10 left-0 flex items-center justify-center">
-            <div className="w-full lg:w-[90%] xl:w-1/2 h-full flex items-end gap-2 bg-zinc-900/60 px-2 lg:px-6 py-3 lg:py-5">
+        <div className="w-full absolute bottom-0 left-0 flex items-center justify-center">
+            <div className="w-full lg:w-[90%] xl:w-1/2 h-full flex items-end gap-2 bg-zinc-900/60 px-2 lg:px-4 py-3 lg:py-4">
 
                 <textarea
                     ref={inputRef}
@@ -50,7 +50,7 @@ const ChatInput = ({ value, onChange, handleSend }: ChatInputProps) => {
                     value={value}
                     onChange={onChange}
                     onKeyDown={handleKeyDown}
-                    placeholder="Type your message..."
+                    placeholder="Type message..."
                     rows={1}
                     className="w-full text-sm lg:text-base border border-zinc-600/80 py-2 px-2
                      bg-zinc-950 outline-none ring-0 focus:ring-0 resize-none 

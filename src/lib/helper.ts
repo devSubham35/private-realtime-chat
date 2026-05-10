@@ -21,3 +21,11 @@ export function handleGetUsername() {
     localStorage.setItem(STORAGE_KEY, username)
     return username
 }
+
+/// format remaining time
+export function formatTimeRemaining(seconds: number){
+    const mins = Math.floor(seconds/60)
+    const secs = seconds % 60
+
+    return `${mins}:${secs.toString().padStart(2, "0")}`
+}

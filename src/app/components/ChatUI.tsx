@@ -4,8 +4,12 @@ import { useState } from "react";
 import ChatInput from "./ChatInput";
 import ChatHeader from "./ChatHeader";
 import ChatSection from "./ChatSection";
+import { useParams } from "next/navigation";
 
 const ChatUI = () => {
+
+    const params = useParams()
+    const roomId = params?.roomId as string
 
     const [value, setValue] = useState("");
     const [chats, setChats] = useState(Array.from({ length: 25 }, () => "Hey Bro what's up, what are you doing right now bro!"));
@@ -19,7 +23,7 @@ const ChatUI = () => {
     return (
         <div className="w-full h-screen relative z-50">
 
-            <ChatHeader />
+            <ChatHeader roomId={roomId} />
 
             <div className="w-full h-[calc(100vh-205px)] lg:h-[calc(100vh-225px)] flex justify-center items-center overflow-hidden">
                 <ChatSection chats={chats} />
