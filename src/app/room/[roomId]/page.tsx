@@ -1,4 +1,4 @@
-import ChatUI from "@/app/components/ChatUI"
+import ChatUI from "@/components/ChatUI"
 
 const Chatpage = () => {
     return (

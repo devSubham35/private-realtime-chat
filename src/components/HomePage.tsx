@@ -16,6 +16,7 @@ const HomePage = () => {
     return (
         <div className="w-full min-h-screen flex flex-col justify-center items-center gap-8 p-4 lg:p-0 relative">
 
+
             <div className="text-center">
                 <h1 className="text-green-500 text-[18px] lg:text-xl mb-1">&gt;private_chat</h1>
                 <h4 className="text-zinc-500 text-[14px] lg:text-base">A private, self distructive chat room</h4>
@@ -45,11 +46,11 @@ const HomePage = () => {
                     <input
                         value={joiningRoomId}
                         placeholder="Enter room id..."
-                        onChange={(e)=> setJoiningRoomId(e.target.value)}
+                        onChange={(e) => setJoiningRoomId(e.target.value)}
                         className="w-full border border-zinc-600/80 py-3 px-4 bg-zinc-950 text-[14px] lg:text-base disabled:text-zinc-600"
                     />
                     <button
-                        onClick={()=> handleJoinRoom()}
+                        onClick={() => handleJoinRoom()}
                         disabled={joiningRoomId.trim().length <= 0}
                         className="w-full lg:w-fit whitespace-nowrap py-2.5 px-4 flex justify-center items-center bg-white text-zinc-800 font-bold
                         cursor-pointer hover:bg-white/80 transition-colors duration-300 text-[14px] lg:text-base disabled:bg-white/20">
