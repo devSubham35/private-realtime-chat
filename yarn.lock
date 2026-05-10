@@ -937,6 +937,11 @@
   resolved "https://registry.yarnpkg.com/@unrs/resolver-binding-win32-x64-msvc/-/resolver-binding-win32-x64-msvc-1.11.1.tgz#538b1e103bf8d9864e7b85cc96fa8d6fb6c40777"
   integrity sha512-lrW200hZdbfRtztbygyaq/6jP6AKE8qQN2KvPcJ+x7wiD038YtnYtZ82IMNJ69GJibV7bwL3y9FgK+5w/pYt6g==
 
+"@upstash/realtime@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@upstash/realtime/-/realtime-1.0.3.tgz#6d2e81cb3cde97f33fbb3f2817e81f509466c4bb"
+  integrity sha512-cF5O0GqTW+yfb1PUzAQTvC0LZccLg8kgFHMc4MxTpQxSV5SKSHr3jl5xogLd772CCO0of9awZdWnbtyH2FHhQg==
+
 "@upstash/redis@^1.38.0":
   version "1.38.0"
   resolved "https://registry.yarnpkg.com/@upstash/redis/-/redis-1.38.0.tgz#f83416bcaceb8fe97a371900aa0debc0ca70eeb0"
