@@ -70,7 +70,7 @@ UPSTASH_REDIS_REST_TOKEN=...
 ```
 src/
 ├── app/            # Next.js routes
-├── components/     # UI components (HomePage, ChatUI, Notification, ...)
+├── components/     # UI components (Lobby, ChatUI, Notification, ...)
 ├── hooks/          # Custom React hooks
 └── lib/            # Helpers and shared utilities
 ```

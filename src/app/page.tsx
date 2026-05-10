@@ -1,9 +1,9 @@
-import HomePage from "../components/HomePage";
+import Lobby from "../components/Lobby";
 
 export default function Home() {
   return (
     <main>
-      <HomePage />
+      <Lobby />
     </main>
   );
 }

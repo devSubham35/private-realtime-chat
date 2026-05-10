@@ -3,7 +3,7 @@
 import useCreateRoom from "@/hooks/useCreateRoom";
 import Notification from "@/components/Notification";
 
-const HomePage = () => {
+const Lobby = () => {
 
     const {
         username,
@@ -65,4 +65,4 @@ const HomePage = () => {
     )
 }
 
-export default HomePage
+export default Lobby
