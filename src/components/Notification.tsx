@@ -1,7 +1,7 @@
 "use client"
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 
 const NOTIFICATION_MESSAGES: Record<string, { title: string; description: string }> = {
     destroyed: {
@@ -18,7 +18,7 @@ const NOTIFICATION_MESSAGES: Record<string, { title: string; description: string
     },
 };
 
-const Notification = () => {
+const NotificationContent = () => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -70,5 +70,11 @@ const Notification = () => {
         </div>
     );
 };
+
+const Notification = () => (
+    <Suspense fallback={null}>
+        <NotificationContent />
+    </Suspense>
+);
 
 export default Notification;
