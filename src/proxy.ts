@@ -7,7 +7,7 @@ type roomType = {
     expireedAt: number
 }
 
-const AUTH_TOKEN_KEY = "X-AUTH-TOKEN"
+const AUTH_TOKEN_KEY = process.env.AUTH_TOKEN_KEY!
 
 export const proxy = async (req: NextRequest) => {
 
