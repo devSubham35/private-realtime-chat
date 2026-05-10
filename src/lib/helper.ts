@@ -6,7 +6,7 @@ const ANIMALS = ["wolf", "frog", "shark", "monkey"]
 /// generate random user name
 export const generateRandomUsername = () => {
     const word = ANIMALS[Math.floor(Math.random() * ANIMALS.length)]
-    return `anonymous-${word}-${nanoid()}`
+    return `anonymous-${word}-${nanoid(6)}`
 }
 
 /// get the user name
@@ -28,4 +28,12 @@ export function formatTimeRemaining(seconds: number){
     const secs = seconds % 60
 
     return `${mins}:${secs.toString().padStart(2, "0")}`
+}
+
+/// format timestamp
+export function formatTime(timestamp: number) {
+  return new Date(timestamp).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }

@@ -1,18 +1,24 @@
 "use client";
 
-import { formatTimeRemaining } from "@/lib/helper";
 import { useState } from "react";
+import { formatTimeRemaining } from "@/lib/helper";
 
-const ChatHeader = ({ roomId }: { roomId: string }) => {
+interface ChatHeaderProps {
+    roomId: string,
+    isLoading?: boolean,
+    timeRemaining: number | null,
+    handleDestroyRoom: () => void,
+}
+
+const ChatHeader = ({ roomId, timeRemaining, handleDestroyRoom, isLoading }: ChatHeaderProps) => {
 
     const [copyText, setCopyText] = useState<string>("COPY");
-    const [timeRemaining, setTimeRemaining] = useState<number | null>(10);
 
 
     /// to copy the room link
     const handleCopy = async () => {
         try {
-            await navigator.clipboard.writeText(`http://localhost:3000/chat-room/${roomId}`);
+            await navigator.clipboard.writeText(`http://localhost:3000/room/${roomId}`);
             setCopyText("COPIED!");
             setTimeout(() => setCopyText("COPY"), 1500);
         } catch (err) {
@@ -60,10 +66,11 @@ const ChatHeader = ({ roomId }: { roomId: string }) => {
                 </div>
 
                 <button
+                    onClick={handleDestroyRoom}
                     className="w-fit sm:w-auto px-4 py-2.5 bg-zinc-800 rounded-lg text-red-500
                 text-sm hover:bg-zinc-800/80 cursor-pointer active:scale-95 transition-transform whitespace-nowrap disabled:bg-white/20"
                 >
-                    {`💣 DESTROY NOW`}
+                    {isLoading ? "💣 DESTROYING..." : "💣 DESTROY NOW"}
                 </button>
             </div>
         </div>

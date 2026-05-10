@@ -3,11 +3,12 @@ import { useRef } from "react";
 
 interface ChatInputProps {
     value: string;
+    isLoading?: boolean;
     handleSend: () => void;
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const ChatInput = ({ value, onChange, handleSend }: ChatInputProps) => {
+const ChatInput = ({ value, onChange, handleSend, isLoading }: ChatInputProps) => {
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const isMobile =
@@ -52,6 +53,7 @@ const ChatInput = ({ value, onChange, handleSend }: ChatInputProps) => {
                     onKeyDown={handleKeyDown}
                     placeholder="Type message..."
                     rows={1}
+                    disabled={isLoading}
                     className="w-full text-sm lg:text-base border border-zinc-600/80 py-2 px-2
                      bg-zinc-950 outline-none ring-0 focus:ring-0 resize-none 
                      overflow-y-auto no-scrollbar min-h-12 lg:min-h-14 max-h-12 lg:max-h-14"
@@ -74,7 +76,7 @@ const ChatInput = ({ value, onChange, handleSend }: ChatInputProps) => {
                     className="px-4 lg:px-10 py-1.5 bg-zinc-500/50 hover:bg-zinc-500/40 font-semibold 
                     cursor-pointer active:scale-95 transition-transform text-sm lg:text-base h-12 lg:h-14"
                 >
-                    SEND
+                    {isLoading ? "SENDING..." : "SEND"}
                 </button>
 
             </div>

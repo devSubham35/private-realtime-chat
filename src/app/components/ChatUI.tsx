@@ -1,29 +1,33 @@
 "use client";
 
-import { useState } from "react";
 import ChatInput from "./ChatInput";
+import useRoom from "@/hooks/useRoom";
 import ChatHeader from "./ChatHeader";
 import ChatSection from "./ChatSection";
-import { useParams } from "next/navigation";
 
 const ChatUI = () => {
 
-    const params = useParams()
-    const roomId = params?.roomId as string
-
-    const [value, setValue] = useState("");
-    const [chats, setChats] = useState(Array.from({ length: 25 }, () => "Hey Bro what's up, what are you doing right now bro!"));
-
-    const handleSend = () => {
-        if (!value.trim()) return;
-        setChats((prev) => [...prev, value]);
-        setValue("");
-    };
+    const {
+        value,
+        chats,
+        roomId,
+        setValue,
+        timeRemaining,
+        destroyRoomMutate,
+        handleSendMessage,
+        isRoomCreatepending,
+        isDestroyRoomPending,
+    } = useRoom()
 
     return (
         <div className="w-full h-screen relative z-50">
 
-            <ChatHeader roomId={roomId} />
+            <ChatHeader
+                roomId={roomId}
+                timeRemaining={timeRemaining}
+                isLoading={isDestroyRoomPending}
+                handleDestroyRoom={()=> destroyRoomMutate()}
+            />
 
             <div className="w-full h-[calc(100vh-205px)] lg:h-[calc(100vh-225px)] flex justify-center items-center overflow-hidden">
                 <ChatSection chats={chats} />
@@ -31,7 +35,8 @@ const ChatUI = () => {
 
             <ChatInput
                 value={value}
-                handleSend={handleSend}
+                handleSend={handleSendMessage}
+                isLoading={isRoomCreatepending}
                 onChange={(e) => setValue(e.target.value)}
             />
 

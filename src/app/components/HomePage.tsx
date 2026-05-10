@@ -1,34 +1,14 @@
 "use client"
 
-import { useState } from "react";
-import { client } from "@/lib/client";
-import { useRouter } from "next/navigation";
-import { handleGetUsername } from "@/lib/helper";
-import { useMutation } from "@tanstack/react-query";
-import type { ApiResponseType } from "@/lib/ApiResponse";
+import useCreateRoom from "@/hooks/useCreateRoom";
 
 const HomePage = () => {
 
-    const router = useRouter()
-    const [username] = useState(() => {
-        if (typeof window === "undefined") return ""
-        return handleGetUsername()
-    })
-
-    /// Create room mutation
-    const { mutate: createRoomMutate, isPending: isRoomCreatepending } = useMutation({
-        mutationKey: ["create-room"],
-        mutationFn: async () => {
-            const { data, error } = await client.room.create.post()
-            if (error) throw new Error((error.value as ApiResponseType).message)
-            return data
-        },
-        onSuccess: (data) => {
-            if (data?.success) {
-                router.push(`/room/${data?.data?.roomId}`)
-            }
-        }
-    })
+    const {
+        username,
+        createRoomMutate,
+        isRoomCreatepending
+    } = useCreateRoom()
 
     return (
         <div className="w-full min-h-screen flex flex-col justify-center items-center gap-8 p-4 lg:p-0 relative">
