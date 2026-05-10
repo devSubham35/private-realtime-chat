@@ -18,7 +18,7 @@ const ChatHeader = ({ roomId, timeRemaining, handleDestroyRoom, isLoading }: Cha
     /// to copy the room link
     const handleCopy = async () => {
         try {
-            await navigator.clipboard.writeText(`http://localhost:3000/room/${roomId}`);
+            await navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_APP_URL}/room/${roomId}`);
             setCopyText("COPIED!");
             setTimeout(() => setCopyText("COPY"), 1500);
         } catch (err) {
@@ -56,7 +56,7 @@ const ChatHeader = ({ roomId, timeRemaining, handleDestroyRoom, isLoading }: Cha
 
             <div className="flex items-center justify-between w-full">
                 <div>
-                    <h4 className="text-zinc-500 text-sm sm:text-base">Self_Destruct</h4>
+                    <h4 className="text-zinc-500 text-sm sm:text-base">Self_Destruct_in</h4>
                     <h4 className={`
                     text-[14px] sm:text-[16px] 
                     ${timeRemaining !== null && Number(timeRemaining) < 60 ? "text-red-500" : "text-yellow-500"}
@@ -68,7 +68,7 @@ const ChatHeader = ({ roomId, timeRemaining, handleDestroyRoom, isLoading }: Cha
                 <button
                     onClick={handleDestroyRoom}
                     className="w-fit sm:w-auto px-4 py-2.5 bg-zinc-800 rounded-lg text-red-500
-                text-sm hover:bg-zinc-800/80 cursor-pointer active:scale-95 transition-transform whitespace-nowrap disabled:bg-white/20"
+                text-sm hover:bg-red-600 hover:text-white cursor-pointer active:scale-95 transition-colors whitespace-nowrap disabled:bg-white/20"
                 >
                     {isLoading ? "💣 DESTROYING..." : "💣 DESTROY NOW"}
                 </button>

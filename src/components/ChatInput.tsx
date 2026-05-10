@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 interface ChatInputProps {
     value: string;
@@ -14,12 +14,18 @@ const ChatInput = ({ value, onChange, handleSend, isLoading }: ChatInputProps) =
     const isMobile =
         typeof window !== "undefined" && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
+    /// re-focus the input once a send completes (textarea is disabled while isLoading)
+    useEffect(() => {
+        if (!isLoading) inputRef.current?.focus();
+    }, [isLoading]);
+
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         /// mobile → allow normal enter
         if (isMobile) return;
 
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
+            if (value.trim().length === 0 || isLoading) return;
             handleSend();
 
             /// desktop → keep refocus
@@ -66,15 +72,17 @@ const ChatInput = ({ value, onChange, handleSend, isLoading }: ChatInputProps) =
 
                 <button
                     onClick={handleClickSend}
+                    disabled={isLoading || value.trim().length === 0}
                     onTouchStart={(e) => {
                         /// Prevent default touch behavior that might blur the input
-                        if (isMobile) {
+                        if (isMobile && value.trim().length > 0) {
                             e.preventDefault();
                             handleClickSend();
                         }
                     }}
-                    className="px-4 lg:px-10 py-1.5 bg-zinc-500/50 hover:bg-zinc-500/40 font-semibold 
-                    cursor-pointer active:scale-95 transition-transform text-sm lg:text-base h-12 lg:h-14"
+                    className="px-4 lg:px-10 py-1.5 bg-zinc-500/50 hover:bg-zinc-500/40 font-semibold
+                    cursor-pointer active:scale-95 transition-transform text-sm lg:text-base h-12 lg:h-14
+                    disabled:bg-zinc-500/20 disabled:cursor-not-allowed disabled:active:scale-100"
                 >
                     {isLoading ? "SENDING..." : "SEND"}
                 </button>

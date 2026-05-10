@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# &gt; private_chat
+
+A minimal, ephemeral chat app — create a secure room, share the link, talk freely. When the timer ends (or you hit destroy), every message is gone for good.
+
+> _A private, self-destructive chat room._
+
+---
+
+## Features
+
+- **Instant rooms** — spin up a private room with one click
+- **Self-destruct timer** — rooms auto-expire and wipe themselves
+- **Manual destroy** — nuke the room on demand
+- **Realtime messaging** — powered by Upstash Realtime + Redis
+- **No accounts** — your identity lives only for the session
+- **Friendly errors** — clear notifications for `room-not-found`, `room-full`, and `destroyed` rooms
+
+---
+
+## Tech Stack
+
+| Layer         | Tool                                |
+| ------------- | ----------------------------------- |
+| Framework     | Next.js 16 (App Router) + React 19  |
+| Styling       | Tailwind CSS v4                     |
+| Realtime      | `@upstash/realtime` + Upstash Redis |
+| API           | Elysia + Eden                       |
+| Data fetching | TanStack Query                      |
+| Validation    | Zod + TypeBox                       |
+| Language      | TypeScript                          |
+
+---
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# install
+yarn install
+
+# run dev server
+yarn run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) and create your first room.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` with your Upstash credentials:
 
-## Learn More
+```env
+UPSTASH_REDIS_REST_URL=...
+UPSTASH_REDIS_REST_TOKEN=...
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Command         | What it does         |
+| --------------- | -------------------- |
+| `yarn run dev`   | Start the dev server |
+| `yarn run build` | Build for production |
+| `yarn run start` | Run the built app    |
+| `yarn run lint`  | Lint the codebase    |
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+├── app/            # Next.js routes
+├── components/     # UI components (HomePage, ChatUI, Notification, ...)
+├── hooks/          # Custom React hooks
+└── lib/            # Helpers and shared utilities
+```
+
+---
+
+## Author
+
+Built with care by **Subham**.
+
+---
+
+_Talk freely. Leave nothing behind._

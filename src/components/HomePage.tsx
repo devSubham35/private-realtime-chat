@@ -1,6 +1,7 @@
 "use client"
 
 import useCreateRoom from "@/hooks/useCreateRoom";
+import Notification from "@/components/Notification";
 
 const HomePage = () => {
 
@@ -16,6 +17,8 @@ const HomePage = () => {
     return (
         <div className="w-full min-h-screen flex flex-col justify-center items-center gap-8 p-4 lg:p-0 relative">
 
+
+            <Notification />
 
             <div className="text-center">
                 <h1 className="text-green-500 text-[18px] lg:text-xl mb-1">&gt;private_chat</h1>

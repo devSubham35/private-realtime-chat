@@ -34,7 +34,7 @@ const useCreateRoom = () => {
 
   const handleJoinRoom = () => {
     console.log("hello")
-    router.push(`http://localhost:3000/room/${joiningRoomId}`)
+    router.push(`${process.env.NEXT_PUBLIC_APP_URL}/room/${joiningRoomId}`)
   }
 
 
