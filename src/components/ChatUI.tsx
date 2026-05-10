@@ -20,7 +20,7 @@ const ChatUI = () => {
     } = useRoom()
 
     return (
-        <div className="w-full h-screen relative z-50">
+        <div className="w-full h-dvh relative z-50 flex flex-col overflow-hidden">
 
             <ChatHeader
                 roomId={roomId}
@@ -29,7 +29,7 @@ const ChatUI = () => {
                 handleDestroyRoom={()=> destroyRoomMutate()}
             />
 
-            <div className="w-full h-[calc(100vh-205px)] lg:h-[calc(100vh-225px)] flex justify-center items-center overflow-hidden">
+            <div className="w-full flex-1 min-h-0 flex justify-center items-center overflow-hidden">
                 <ChatSection chats={chats} />
             </div>
 

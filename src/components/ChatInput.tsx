@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 interface ChatInputProps {
     value: string;
@@ -14,42 +14,32 @@ const ChatInput = ({ value, onChange, handleSend, isLoading }: ChatInputProps) =
     const isMobile =
         typeof window !== "undefined" && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
-    /// re-focus the input once a send completes (textarea is disabled while isLoading)
-    useEffect(() => {
-        if (!isLoading) inputRef.current?.focus();
-    }, [isLoading]);
-
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        /// mobile → allow normal enter
+        /// mobile → allow normal enter (newline)
         if (isMobile) return;
 
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             if (value.trim().length === 0 || isLoading) return;
             handleSend();
-
-            /// desktop → keep refocus
-            setTimeout(() => inputRef.current?.focus(), 0);
         }
+    };
+
+    /// On mobile, prevent default on the button's pointer events so the textarea
+    /// never loses focus → keyboard doesn't close & reopen between sends.
+    const handleSendPointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
+        if (isMobile) e.preventDefault();
     };
 
     const handleClickSend = () => {
-        // Don't blur on mobile to keep keyboard open
-        if (isMobile) {
-            inputRef.current?.focus();
-        }
-        
+        if (value.trim().length === 0 || isLoading) return;
         handleSend();
-
-        /// desktop only refocus after send
-        if (!isMobile) {
-            setTimeout(() => inputRef.current?.focus(), 0);
-        }
+        if (!isMobile) inputRef.current?.focus();
     };
 
     return (
-        <div className="w-full absolute bottom-0 left-0 flex items-center justify-center">
-            <div className="w-full lg:w-[90%] xl:w-1/2 h-full flex items-end gap-2 bg-zinc-900/60 px-2 lg:px-4 py-3 lg:py-4">
+        <div className="w-full flex items-center justify-center shrink-0">
+            <div className="w-full lg:w-[90%] xl:w-1/2 flex items-end gap-2 bg-zinc-900/60 px-2 lg:px-4 py-3 lg:py-4">
 
                 <textarea
                     ref={inputRef}
@@ -59,9 +49,9 @@ const ChatInput = ({ value, onChange, handleSend, isLoading }: ChatInputProps) =
                     onKeyDown={handleKeyDown}
                     placeholder="Type message..."
                     rows={1}
-                    disabled={isLoading}
+                    readOnly={isLoading}
                     className="w-full text-sm lg:text-base border border-zinc-600/80 py-2 px-2
-                     bg-zinc-950 outline-none ring-0 focus:ring-0 resize-none 
+                     bg-zinc-950 outline-none ring-0 focus:ring-0 resize-none
                      overflow-y-auto no-scrollbar min-h-12 lg:min-h-14 max-h-12 lg:max-h-14"
                     onInput={(e) => {
                         const el = e.currentTarget;
@@ -71,15 +61,10 @@ const ChatInput = ({ value, onChange, handleSend, isLoading }: ChatInputProps) =
                 />
 
                 <button
+                    type="button"
+                    onPointerDown={handleSendPointerDown}
                     onClick={handleClickSend}
                     disabled={isLoading || value.trim().length === 0}
-                    onTouchStart={(e) => {
-                        /// Prevent default touch behavior that might blur the input
-                        if (isMobile && value.trim().length > 0) {
-                            e.preventDefault();
-                            handleClickSend();
-                        }
-                    }}
                     className="px-4 lg:px-10 py-1.5 bg-zinc-500/50 hover:bg-zinc-500/40 font-semibold
                     cursor-pointer active:scale-95 transition-transform text-sm lg:text-base h-12 lg:h-14
                     disabled:bg-zinc-500/20 disabled:cursor-not-allowed disabled:active:scale-100"
