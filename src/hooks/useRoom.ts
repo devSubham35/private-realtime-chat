@@ -51,7 +51,6 @@ const useRoom = () => {
                     query: { roomId }
                 }
             )
-            setValue("");
         }
     })
 
@@ -66,8 +65,21 @@ const useRoom = () => {
     })
 
     const handleSendMessage = () => {
-        if (!value.trim()) return;
-        sendMessageMutate(value)
+        const text = value.trim();
+        if (!text) return;
+
+        const optimistic: Message = {
+            id: `optimistic-${Date.now()}`,
+            text,
+            sender: username,
+            roomId,
+            timestamp: Date.now(),
+            token: "optimistic",
+        };
+        setChats((prev) => [...prev, optimistic]);
+        setValue("");
+
+        sendMessageMutate(text);
     };
 
 
