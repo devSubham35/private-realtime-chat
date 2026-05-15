@@ -25,10 +25,10 @@ const ChatInput = ({ value, onChange, handleSend, isLoading }: ChatInputProps) =
         }
     };
 
-    /// On mobile, prevent default on the button's pointer events so the textarea
-    /// never loses focus → keyboard doesn't close & reopen between sends.
-    const handleSendPointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
-        if (isMobile) e.preventDefault();
+    /// Prevent the button from stealing focus from the textarea so the mobile
+    /// keyboard doesn't close between sends.
+    const preventFocusSteal = (e: React.SyntheticEvent) => {
+        e.preventDefault();
     };
 
     const handleClickSend = () => {
@@ -62,7 +62,9 @@ const ChatInput = ({ value, onChange, handleSend, isLoading }: ChatInputProps) =
 
                 <button
                     type="button"
-                    onPointerDown={handleSendPointerDown}
+                    tabIndex={-1}
+                    onMouseDown={preventFocusSteal}
+                    onPointerDown={preventFocusSteal}
                     onClick={handleClickSend}
                     disabled={isLoading || value.trim().length === 0}
                     className="px-4 lg:px-10 py-1.5 bg-zinc-500/50 hover:bg-zinc-500/40 font-semibold
