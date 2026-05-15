@@ -1,5 +1,6 @@
 import { Message } from '@/lib/realtime';
 import { useEffect, useRef } from 'react'
+import { BsCheck, BsCheckAll } from 'react-icons/bs';
 import { formatTime } from '@/lib/helper';
 import useCreateRoom from '@/hooks/useCreateRoom';
 
@@ -40,10 +41,17 @@ const ChatSection = ({ chats }: { chats?: Message[] }) => {
                         >
                             <h1 className="text-white text-sm">{msg?.text}</h1>
                             <p className="mt-1.5 text-xs lg:text-[10px] text-zinc-400 self-end flex items-center gap-1">
-                                {formatTime(msg?.timestamp)} |                             
+                                {formatTime(msg?.timestamp)} |
                                 <h1 className={`${msg?.token ? "text-green-500" : "text-yellow-500"} text-[10px] self-end`}>
                                 {msg?.sender === username ? "YOU" : msg?.sender}
-                            </h1>
+                                </h1>
+                                {msg?.sender === username && (
+                                    msg?.token === "optimistic" ? (
+                                        <BsCheck className="text-green-500 text-base" aria-label="Sending" />
+                                    ) : (
+                                        <BsCheckAll className="text-green-500 text-base" aria-label="Sent" />
+                                    )
+                                )}
                             </p>
                         </div>
                     ))

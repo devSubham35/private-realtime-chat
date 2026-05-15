@@ -65,12 +65,12 @@ const ChatInput = ({ value, onChange, handleSend, isLoading }: ChatInputProps) =
                     onMouseDown={preventFocusSteal}
                     onPointerDown={preventFocusSteal}
                     onClick={handleClickSend}
-                    disabled={isLoading || value.trim().length === 0}
+                    disabled={value.trim().length === 0}
                     className="px-4 lg:px-10 py-1.5 bg-zinc-500/50 hover:bg-zinc-500/40 font-semibold
                     cursor-pointer active:scale-95 transition-transform text-sm lg:text-base h-12 lg:h-14
                     disabled:bg-zinc-500/20 disabled:cursor-not-allowed disabled:active:scale-100"
                 >
-                    {isLoading ? "SENDING..." : "SEND"}
+                    SEND
                 </button>
 
             </div>
