@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import ChatInput from "./ChatInput";
 import useRoom from "@/hooks/useRoom";
 import ChatHeader from "./ChatHeader";
@@ -19,8 +20,30 @@ const ChatUI = () => {
         isDestroyRoomPending,
     } = useRoom()
 
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const vv = window.visualViewport;
+        if (!vv) return;
+
+        const sync = () => {
+            const el = containerRef.current;
+            if (!el) return;
+            el.style.height = `${vv.height}px`;
+        };
+
+        sync();
+        vv.addEventListener("resize", sync);
+        return () => {
+            vv.removeEventListener("resize", sync);
+        };
+    }, []);
+
     return (
-        <div className="w-full h-dvh relative z-50 flex flex-col overflow-hidden">
+        <div
+            ref={containerRef}
+            className="fixed inset-0 z-50 flex flex-col overflow-hidden"
+        >
 
             <ChatHeader
                 roomId={roomId}
