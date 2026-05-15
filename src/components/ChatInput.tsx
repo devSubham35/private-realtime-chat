@@ -34,7 +34,7 @@ const ChatInput = ({ value, onChange, handleSend, isLoading }: ChatInputProps) =
     const handleClickSend = () => {
         if (value.trim().length === 0 || isLoading) return;
         handleSend();
-        if (!isMobile) inputRef.current?.focus();
+        inputRef.current?.focus();
     };
 
     return (
